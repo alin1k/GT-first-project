@@ -1,6 +1,6 @@
 <% const {img, name, description, id, size, type, color, price, stock} = item; %>
 
-<%- include('../partials/header.ejs', {title: name}); -%>
+<%- include('../partials/header.ejs', {title: name, categories}); -%>
 
     <div class="row">
         <div class="col-6 p-0">
@@ -12,8 +12,8 @@
             <p class="lead mb-5"><%= description %></p>
 
             <h1 class="display-6"><%= price %> RON</h1>
-            <p class="lead">Marime: <%= size %></p>
             <p class="lead"><%= type %></p>
+            <p class="lead">Marime: <%= size %></p>
             <p class="lead mb-5">Culori: <%= color.join(", ") %></p>
 
             <% if(stock>0){ %>

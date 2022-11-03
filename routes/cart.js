@@ -1,10 +1,11 @@
 import express from 'express';
 import products from '../models/items.js'
 import cartItems from '../models/cart.js';
+import categories from '../models/categories.js';
 const router = express.Router();
 
 router.get('/', (req,res)=>{
-    res.render('cart.ejs', {cartItems});
+    res.render('cart.ejs', {cartItems, categories});
 });
 
 router.post('/', (req, res)=>{
