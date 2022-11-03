@@ -1,0 +1,27 @@
+<%- include('partials/header.ejs', {title: "Rocsa's Crochet Store"}); -%>
+
+    <div class="container-fluid row">
+        <div class="col-6 p-5 my-auto">
+            <h1 class="display-4">Bine ai venit la magazinul meu!</h1>
+        </div>
+        <div class="col-6 text-center p-5 my-auto">
+            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Non vero molestias doloremque asperiores dolores assumenda.</p>
+            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Amet totam quaerat, illo ea dolor quas officia dolores est at ipsam nisi maiores eius non. Minima alias pariatur aliquid consectetur rem?</p>
+            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. At, omnis.</p>
+        </div>
+    </div>
+
+    <h1 class="display-2 text-center py-4">Cele Mai Recente Produse</h1>
+
+    <div class="row">
+        <% products.forEach((value)=>{ %>
+            <%- include('partials/product-card.ejs', {item: value}) -%>
+        <% }) %>
+    </div>
+
+    <div class="p-4 text-center">
+        <a class="btn btn-lg btn-dark" href="/products">Vezi Toate Produsele</a>
+    </div>
+
+<%- include('partials/footer.ejs'); -%>
+

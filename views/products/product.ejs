@@ -1,0 +1,37 @@
+<% const {img, name, description, id, size, type, color, price, stock} = item; %>
+
+<%- include('../partials/header.ejs', {title: name}); -%>
+
+    <div class="row">
+        <div class="col-6 p-0">
+            <img src=<%= img %> alt="" style="width:100%">
+        </div>
+
+        <div class="col-6 p-5">
+            <h1 class="display-3"><%= name %></h1>
+            <p class="lead mb-5"><%= description %></p>
+
+            <h1 class="display-6"><%= price %> RON</h1>
+            <p class="lead">Marime: <%= size %></p>
+            <p class="lead"><%= type %></p>
+            <p class="lead mb-5">Culori: <%= color.join(", ") %></p>
+
+            <% if(stock>0){ %>
+                <a 
+                    class="btn btn-lg btn-dark mb-5"
+                    href=<%= "javascript:fetch('http://localhost:3000/cart',{method:'POST',headers:{'Content-Type':'application/json',},body:JSON.stringify({id:" + id + "})});" %>
+                >Adauga in cos <i class="fa-solid fa-cart-shopping"></i></a>
+            <% } else { %>
+                <a 
+                    class="btn btn-lg btn-danger mb-5 disabled"
+                    >Adauga in cos <i class="fa-solid fa-cart-shopping"></i></a>
+                <p>Produsul nu mai e in stoc!</p>
+            <% } %>
+
+            <br>
+            <a href="#">Editare produs</a>
+            <a href="#">Stergere produs</a>
+        </div>
+    </div>
+
+<%- include('../partials/footer.ejs'); -%>

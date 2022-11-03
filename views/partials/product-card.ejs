@@ -1,0 +1,15 @@
+<% const {img, name, description, id, size, type, color, price, stock} = item; %>
+
+<div class="col-4 px-5 py-4">
+    <div class="card">
+        <img src="<%= img %>" class="card-img-top" alt="product image">
+        <div class="card-body">
+            <h5 class="card-title"><%= name %></h5>
+            <h6 class="card-subtitle text-muted mb-3"><%= price %> RON</h6>
+            <p class="card-text mb-2"><%= description %></p>
+            <p class="card-text">Culori: <%= color.join(", ") %></p>
+            <a href="/cart" class="btn btn-dark">Adauga in cos <i class="fa-solid fa-cart-shopping"></i></a>
+            <a href=<%= "products/" + id %> class="btn btn-dark">Vezi produs</a>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,11 @@
+<%- include('../partials/header.ejs', {title: "Rocsa's Crochet Store"}); -%>
+
+    <h1 class="display-2 text-center py-4">Toate Produsele!</h1>
+
+    <div class="row">
+        <% products.forEach((value)=>{ %>
+            <%- include('../partials/product-card.ejs', {item: value}) -%>
+        <% }) %>
+    </div>
+
+<%- include('../partials/footer.ejs'); -%>
