@@ -19,11 +19,11 @@ document.getElementById("cancel-button").addEventListener("click", (event)=>{
 document.getElementById("submit-button").addEventListener("click", (event)=>{
     event.stopPropagation();
 
-    const category = document.getElementById("category-input").value;
+    let category = document.getElementById("category-input").value;
+
+    category = category.replace(/\s+/g, '');
 
     if(category){
-        // fetch("http://localhost3000/products", {
-        //     method: "POST",
-        // })
+        fetch("http://localhost:3000/products?cat="+category, {method: "POST"}).then(()=>{window.location.href = "/products?cat=" + category;})
     }
 })

@@ -32,12 +32,9 @@
                     <% categories.forEach((val)=>{ %>
                       <li><a class="dropdown-item" href= <%= "/products?cat=" + val %> > <%= val %> </a></li>
                     <% }) %>
-    
-                    <li><a class="dropdown-item" href="/products">Vezi toate produsele</a></li>
-                    <li><hr class="dropdown-divider"></li>
-
+                    
                     <li>
-                      <div id="add-category-form" class="d-none">
+                      <div id="add-category-form" class="d-none px-2">
                         <input type="text" name="new-category" class="form-control-sm mb-1" id="category-input">
                         <button class="btn btn-dark btn-sm" id="submit-button">Submit</button>
                         <button id="cancel-button" class="btn btn-danger btn-sm">Cancel</button>
@@ -45,6 +42,10 @@
 
                       <a class="dropdown-item" id="add-category" href="javascript:"><i class="fa-solid fa-plus"></i> Adauga categorie</a> 
                     </li>
+                    
+                    <li><hr class="dropdown-divider"></li>
+                    <li><a class="dropdown-item" href="/products">Vezi toate produsele</a></li>
+
 
                   </ul>
                 </li>

@@ -1,4 +1,4 @@
-<% const {img, name, description, id, size, type, color, price, stock} = item; %>
+<% const {img, name, description, id, size, color, price, stock} = item; %>
 
 <div class="col-4 px-5 py-4">
     <div class="card">
@@ -8,8 +8,22 @@
             <h6 class="card-subtitle text-muted mb-3"><%= price %> RON</h6>
             <p class="card-text mb-2"><%= description %></p>
             <p class="card-text">Culori: <%= color.join(", ") %></p>
-            <a href="/cart" class="btn btn-dark">Adauga in cos <i class="fa-solid fa-cart-shopping"></i></a>
-            <a href=<%= "products/" + id %> class="btn btn-dark">Vezi produs</a>
+
+            <% if(locals.toBeAdded){ %>
+                <a 
+                href=<%= "javascript:fetch('http://localhost:3000/products/add-product-to-cat?cat=" + toBeAdded + "&id="+ id +"',{method:'POST'}).then(window.location.href='/products?cat=" + toBeAdded + "')" %> 
+                class="btn btn-dark">Adauga in categorie</a>
+            <% } else if(locals.category) { %>
+                <a href="/cart" class="btn btn-dark">Adauga in cos <i class="fa-solid fa-cart-shopping"></i></a>
+                <a href=<%= "products?id=" + id %> class="btn btn-dark">Vezi produs</a>
+                <a 
+                href=<%= "javascript:fetch('http://localhost:3000/products/add-product-to-cat?cat=" + category +"&id="+ id +"',{method:'DELETE'}).then(window.location.href='/products?cat=" + category + "')" %>
+                class="btn btn-danger">Sterge din categorie</a>
+            <% } else{ %>
+                <a href="/cart" class="btn btn-dark">Adauga in cos <i class="fa-solid fa-cart-shopping"></i></a>
+                <a href=<%= "products?id=" + id %> class="btn btn-dark">Vezi produs</a>
+            <% } %>
+
         </div>
     </div>
 </div>
