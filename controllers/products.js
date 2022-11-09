@@ -60,6 +60,10 @@ export function getProductsToBeAdded(req, res){
     }
 }
 
+export function addProduct(req, res){
+    res.render("products/add-product.ejs", {title: "Adauga un produs nou", categories});
+}
+
 export function postCategory(req, res){
     const {cat} = req.query
 
@@ -71,6 +75,14 @@ export function postCategory(req, res){
     }
 }
 
+export function postProduct(req, res){
+    console.log(req.body);
+
+    products.push(req.body);
+
+    res.status(200).send("Product added");
+}
+
 export function postProductToCategory(req, res){
     const {cat, id} = req.query;
 
@@ -79,7 +91,7 @@ export function postProductToCategory(req, res){
 
     res.status(200).send("Product added sucessfully");
 }
- 
+
 export function deleteCategory(req, res){
     const {cat} = req.query;
     const index = categories.indexOf(cat);

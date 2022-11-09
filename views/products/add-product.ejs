@@ -1,0 +1,49 @@
+<%- include('../partials/header.ejs', {title , categories}); -%>
+    <h1 class="display-2 py-4 text-center">Adauga un produs nou</h1>
+
+
+    <form class="row g-3" id="add-product">
+        <div class="col-3">
+            <label for="name" class="form-label">Nume</label>
+            <input type="text" class="form-control" name="name" value="Vacuta biscuite">
+        </div>
+        <div class="col-1">
+            <label for="id" class="form-label">id</label>
+            <input type="text" name="id" class="form-control" value="8">
+        </div>
+        <div class="col-2">
+            <label for="stock" class="form-label">stoc</label>
+            <input type="number" name="stock" class="form-control" value="1">
+        </div>
+        <div class="col-3">
+            <label class="form-label" for="size">Marime</label>
+            <select class="form-select" aria-label="Selecteaza marimea" name="size">
+                <option value="S" selected>S - Mic</option>
+                <option value="M">M - Mediu</option>
+                <option value="L">L - Mare</option>
+            </select>
+        </div>
+        <div class="col-3">
+            <label class="form-label" for="price">Pret</label>
+            <input type="number" name="price" class="form-control" value="100">
+        </div>
+        <div class="col-6">
+            <label for="image" class="form-label">Poza produs</label>
+            <input type="text" name="img" class="form-control" value="/images/img8.jpg">
+        </div>
+        <div class="col-6">
+            <label for="colors" class="form-label">Culori</label>
+            <input type="text" name="color" class="form-control" placeholder="roz,alb,albastru" value="Maro,Alb">
+            <p>Te rog sa scrii culorile sub forma "culoare1,culoare2,culoare3"</p>
+        </div>
+        <div class="col-12">
+            <label for="description" class="form-label">Descriere</label>
+            <textarea class="form-control" name="description" rows="3" style="resize: none;">Vacuta cu un biscuitel la gat</textarea>
+        </div>
+        <div class="col-12 text-center">
+            <button type="submit" class="btn btn-dark btn-lg">Adauga produsul</button>
+            <a href="/products" class="btn btn-danger btn-lg">Cancel</a>
+        </div>
+    </form>
+
+<%- include('../partials/footer.ejs'); -%>

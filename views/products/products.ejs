@@ -8,11 +8,13 @@
         <% }) %>
     </div>
 
-    <% if(locals.category){ %>
-        <div class="p-4 text-center">
-            <a class="btn btn-dark btn-lg" href=<%= "javascript:window.location.href='/products/add-product-to-cat?cat=" + category + "'" %>>Adauga produse</a>
+    <div class="p-4 text-center">
+        <% if(locals.category){ %>
+            <a class="btn btn-dark btn-lg" href=<%= "/products/add-product-to-cat?cat=" + category %>>Adauga produse</a>
             <a class="btn btn-danger btn-lg" href=<%= "javascript:fetch('http://localhost:3000/products?cat=" + category + "',{method:'DELETE'}).then(window.location.href='/products');" %> >Sterge categoria</a>
-        </div>
-    <% } %>
+        <% } else { %>
+            <a href=<%= "/products/add-product" %> class="btn btn-dark btn-lg">Adauga un produs nou</a>
+        <% } %>
+    </div>
 
 <%- include('../partials/footer.ejs'); -%>
