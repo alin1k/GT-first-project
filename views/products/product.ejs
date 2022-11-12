@@ -28,8 +28,8 @@
             <% } %>
 
             <br>
-            <a href="#">Editare produs</a>
-            <a href="#">Stergere produs</a>
+            <a href="" >Editare produs</a>
+            <a href=<%= "javascript:fetch('http://localhost:3000/products/add-product?id=" + id + "',{method:'DELETE'}).then(window.location.href='/products')" %>>Stergere produs</a>
         </div>
     </div>
 

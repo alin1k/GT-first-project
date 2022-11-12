@@ -76,11 +76,19 @@ export function postCategory(req, res){
 }
 
 export function postProduct(req, res){
-    console.log(req.body);
+    let item = req.body;
 
-    products.push(req.body);
+    item.id = parseInt(item.id);
+    item.stock = parseInt(item.stock);
+    item.price = parseInt(item.price);
+    item.color = item.color.split(',');
 
-    res.status(200).send("Product added");
+    item.category = [];
+    item.img = "/images/img" + item.id + ".jpg";
+
+    products.push(item);
+
+    res.status(200).redirect('/products?id=' + item.id);
 }
 
 export function postProductToCategory(req, res){
@@ -127,4 +135,21 @@ export function deleteProductFromCategory(req, res){
     });
 
     res.status(200).send("Product succesfully deleted!");
+}
+
+export function deleteProduct(req, res){
+    let item;
+
+    if(req.query.id){
+        [item] = products.filter(val=>
+            val.id === parseInt(req.query.id)
+        )
+    }
+
+    const index = products.indexOf(item);
+    if(index > -1){
+        products.splice(index, 1);
+    }
+
+    res.status(200).send("Product deleted!");
 }
