@@ -1,4 +1,4 @@
-<% const {img, name, description, id, size, color, price, stock} = item; %>
+<% const {name, description, _id, size, color, price, stock, img} = item; %>
 
 <div class="col-4 px-5 py-4">
     <div class="card">
@@ -9,20 +9,28 @@
             <p class="card-text mb-2"><%= description %></p>
             <p class="card-text">Culori: <%= color.join(", ") %></p>
 
-            <% if(locals.toBeAdded){ %>
-                <a 
-                href=<%= "javascript:fetch('http://localhost:3000/products/add-product-to-cat?cat=" + toBeAdded + "&id="+ id +"',{method:'POST'}).then(window.location.href='/products?cat=" + toBeAdded + "')" %> 
-                class="btn btn-dark">Adauga in categorie</a>
-            <% } else if(locals.category) { %>
-                <a href="/cart" class="btn btn-dark">Adauga in cos <i class="fa-solid fa-cart-shopping"></i></a>
-                <a href=<%= "products?id=" + id %> class="btn btn-dark">Vezi produs</a>
-                <a 
-                href=<%= "javascript:fetch('http://localhost:3000/products/add-product-to-cat?cat=" + category +"&id="+ id +"',{method:'DELETE'}).then(window.location.href='/products?cat=" + category + "')" %>
-                class="btn btn-danger">Sterge din categorie</a>
-            <% } else{ %>
-                <a href="/cart" class="btn btn-dark">Adauga in cos <i class="fa-solid fa-cart-shopping"></i></a>
-                <a href=<%= "products?id=" + id %> class="btn btn-dark">Vezi produs</a>
-            <% } %>
+            <div class="text-center">
+                <% if(locals.toBeAdded){ %>
+                    <form action="/products/add-product-to-cat?_method=POST" method="POST" enctype="application/x-www-form-urlencoded">
+                        <input type="hidden" name="_method" value="POST">
+                        <input type="hidden" name="cat" value=<%= toBeAdded %> >
+                        <input type="hidden" name="id" value=<%= _id %> > 
+                        <button class="btn btn-dark">Adauga in categorie</button>
+                    </form>
+                <% } else if(locals.category) { %>
+                    <a href="/cart" class="btn btn-dark">Adauga in cos <i class="fa-solid fa-cart-shopping"></i></a>
+                    <a href=<%= "products?id=" + _id %> class="btn btn-dark">Vezi produs</a>
+                    <form action="/products/add-product-to-cat?_method=DELETE" method="POST" enctype="application/x-www-form-urlencoded">
+                        <input type="hidden" name="_method" value="DELETE">
+                        <input type="hidden" name="cat" value=<%= category %>>
+                        <input type="hidden" name="id" value=<%= _id %>>
+                        <button class="btn btn-danger">Sterge din categorie</button>
+                    </form>
+                <% } else{ %>
+                    <a href="/cart" class="btn btn-dark">Adauga in cos <i class="fa-solid fa-cart-shopping"></i></a>
+                    <a href=<%= "products?id=" + _id %> class="btn btn-dark">Vezi produs</a>
+                <% } %>
+            </div>
 
         </div>
     </div>

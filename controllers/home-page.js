@@ -1,7 +1,16 @@
-import products from '../models/items.js'
-import categories from '../models/categories.js';
+import Product from '../models/products.js'
+import Category from '../models/categories.js';
 
-export function getLatestProducts(req,res){
-    const latestProducts = [products[products.length-3], products[products.length-2], products[products.length-1]]
+export async function getLatestProducts(req,res){
+    const categories = await Category.distinct('name');
+
+    const products = await Product.find();
+
+    let latestProducts;
+    if(products.length > 3){
+        latestProducts = [products[products.length-3], products[products.length-2], products[products.length-1]]
+    }else{
+        latestProducts = products;
+    }
     res.render('index.ejs', {products: latestProducts, categories});
 }

@@ -1,4 +1,4 @@
-<% const {img, name, description, id, size, color, price, stock} = item; %>
+<% const {img, name, description, _id, size, color, price, stock} = item; %>
 
 <%- include('../partials/header.ejs', {title: name, categories}); -%>
 
@@ -18,7 +18,7 @@
             <% if(stock>0){ %>
                 <a 
                     class="btn btn-lg btn-dark mb-5"
-                    href=<%= "javascript:fetch('http://localhost:3000/cart',{method:'POST',headers:{'Content-Type':'application/json',},body:JSON.stringify({id:" + id + "})});" %>
+                    href=<%= "javascript:fetch('http://localhost:3000/cart',{method:'POST',headers:{'Content-Type':'application/json',},body:JSON.stringify({id:" + _id + "})});" %>
                 >Adauga in cos <i class="fa-solid fa-cart-shopping"></i></a>
             <% } else { %>
                 <a 
@@ -29,7 +29,11 @@
 
             <br>
             <a href="" >Editare produs</a>
-            <a href=<%= "javascript:fetch('http://localhost:3000/products/add-product?id=" + id + "',{method:'DELETE'}).then(window.location.href='/products')" %>>Stergere produs</a>
+            <form action="/products/add-product?_method=DELETE" method="POST">
+                <input type="hidden" name="_method" value="DELETE">
+                <input type="hidden" name="id" value=<%= _id %>>
+                <button type="submit" class="btn btn-danger">Sterge produs</button>
+            </form>
         </div>
     </div>
 

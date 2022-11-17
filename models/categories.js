@@ -1,10 +1,21 @@
-import items from "./items.js";
+import mongoose from "mongoose";
 
-const array = [] ;
-items.filter((val)=>{
-    val.category.forEach(cat=>{
-        array.push(cat);
-    })
+const categorySchema = new mongoose.Schema({
+    name: String
 });
 
-export default [...new Set(array)];;
+const Category = mongoose.model('Category', categorySchema);
+
+export default Category;
+
+
+// import items from "./products.js";
+
+// const array = [] ;
+// items.filter((val)=>{
+//     val.category.forEach(cat=>{
+//         array.push(cat);
+//     })
+// });
+
+// export default [...new Set(array)];;
