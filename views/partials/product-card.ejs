@@ -11,7 +11,7 @@
 
             <div class="text-center">
                 <% if(locals.toBeAdded){ %>
-                    <form action="/products/add-product-to-cat?_method=POST" method="POST" enctype="application/x-www-form-urlencoded">
+                    <form action="/products/category/add?_method=POST" method="POST" enctype="application/x-www-form-urlencoded">
                         <input type="hidden" name="_method" value="POST">
                         <input type="hidden" name="cat" value=<%= toBeAdded %> >
                         <input type="hidden" name="id" value=<%= _id %> > 
@@ -19,8 +19,8 @@
                     </form>
                 <% } else if(locals.category) { %>
                     <a href="/cart" class="btn btn-dark">Adauga in cos <i class="fa-solid fa-cart-shopping"></i></a>
-                    <a href=<%= "products?id=" + _id %> class="btn btn-dark">Vezi produs</a>
-                    <form action="/products/add-product-to-cat?_method=DELETE" method="POST" enctype="application/x-www-form-urlencoded">
+                    <a href=<%= "/products?id=" + _id %> class="btn btn-dark">Vezi produs</a>
+                    <form action="/products/category/add?_method=DELETE" method="POST" enctype="application/x-www-form-urlencoded">
                         <input type="hidden" name="_method" value="DELETE">
                         <input type="hidden" name="cat" value=<%= category %>>
                         <input type="hidden" name="id" value=<%= _id %>>
@@ -28,7 +28,7 @@
                     </form>
                 <% } else{ %>
                     <a href="/cart" class="btn btn-dark">Adauga in cos <i class="fa-solid fa-cart-shopping"></i></a>
-                    <a href=<%= "products?id=" + _id %> class="btn btn-dark">Vezi produs</a>
+                    <a href=<%= "/products?id=" + _id %> class="btn btn-dark">Vezi produs</a>
                 <% } %>
             </div>
 

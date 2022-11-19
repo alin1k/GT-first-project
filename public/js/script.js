@@ -24,6 +24,6 @@ document.getElementById("submit-button").addEventListener("click", (event)=>{
     category = category.replace(/\s+/g, '');
 
     if(category){
-        fetch("http://localhost:3000/products?cat="+category, {method: "POST"}).then(()=>{window.location.href = "/products?cat=" + category;})
+        fetch("http://localhost:3000/products/category?cat="+category, {method: "POST"}).then(()=>{window.location.href = "/products/category?cat=" + category;})
     }
 })

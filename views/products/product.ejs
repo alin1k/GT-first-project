@@ -29,7 +29,7 @@
 
             <br>
             <a href="" >Editare produs</a>
-            <form action="/products/add-product?_method=DELETE" method="POST">
+            <form action="/products?_method=DELETE" method="POST">
                 <input type="hidden" name="_method" value="DELETE">
                 <input type="hidden" name="id" value=<%= _id %>>
                 <button type="submit" class="btn btn-danger">Sterge produs</button>

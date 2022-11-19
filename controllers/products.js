@@ -2,34 +2,17 @@ import Product from '../models/products.js'
 import Category from '../models/categories.js';
 import { unlink } from 'node:fs/promises';
 
+
+
+//              GET
+
 export async function getProducts(req, res){
-    const {cat, id} = req.query;
+    const {id} = req.query;
 
     const products = await Product.find();
-    const categories = await Category.distinct('name');
+    const categories = (await Category.distinct('name')).reverse();
 
-    if(cat){
-        const items = products.filter(val=> val.category.includes(cat));
-
-        if(items.length){
-            res.render('products/products.ejs', {
-                products: items, 
-                categories, 
-                category: cat ,
-                heading: "Toate Produsele din categoria: " + cat
-            });
-        }else if(categories.includes(cat)){
-            res.render('products/products.ejs', {
-                products: items, 
-                categories, 
-                category: cat ,
-                heading: "Din pacate aceasta categorie nu contine produse"
-            });
-        }else{
-            res.redirect('/products')
-        }
-
-    }else if(id){
+    if(id){
         const [item] = products.filter((val)=> val._id.toString() === id);
         if(item){
             res.render('products/product.ejs', {item, categories});
@@ -46,11 +29,38 @@ export async function getProducts(req, res){
     }
 }
 
+export async function getCategoryProducts(req, res){
+    const {cat} = req.query;
+
+    const products = await Product.find();
+    const categories = (await Category.distinct('name')).reverse();
+
+    const items = products.filter(val=> val.category.includes(cat));
+
+    if(items.length){
+        res.render('products/products.ejs', {
+            products: items, 
+            categories, 
+            category: cat ,
+            heading: "Toate Produsele din categoria: " + cat
+        });
+    }else if(categories.includes(cat)){
+        res.render('products/products.ejs', {
+            products: items, 
+            categories, 
+            category: cat ,
+            heading: "Din pacate aceasta categorie nu contine produse"
+        });
+    }else{
+        res.redirect('/products')
+    }
+}
+
 export async function getProductsToBeAdded(req, res){
     const {cat} = req.query;
 
     const products = await Product.find();
-    const categories = await Category.distinct('name');
+    const categories = (await Category.distinct('name')).reverse();
 
     if(categories.includes(cat)){
         const items = products.filter(val=> !val.category.includes(cat));
@@ -67,16 +77,15 @@ export async function getProductsToBeAdded(req, res){
     }
 }
 
-export async function addProduct(req, res){
-    const categories = [];
-    const DbCategories = await Category.find();
+export async function getAddProductForm(req, res){
+    const categories = (await Category.distinct('name')).reverse();
 
-    DbCategories.forEach(val=>{
-        categories.push(val.name);
-    })
-
-    res.render("products/add-product.ejs", {title: "Adauga un produs nou", categories});
+    res.render("products/product-form.ejs", {title: "Adauga un produs nou", categories});
 }
+
+
+
+//              POST
 
 export async function postCategory(req, res){ //REWORK
     const {cat} = req.query
@@ -127,11 +136,15 @@ export async function postProductToCategory(req, res){
     try {
         await Product.findByIdAndUpdate(id, itemUpdate);
     
-        res.status(200).redirect('/products?cat=' + cat);
+        res.status(200).redirect('/products/category?cat=' + cat);
     } catch (error) {
         res.status(400).json(error.message);
     }
 }
+
+
+
+//              DELETE
 
 export async function deleteCategory(req, res){
     const {cat} = req.body;
@@ -161,7 +174,7 @@ export async function deleteProductFromCategory(req, res){
     try {
         await Product.findByIdAndUpdate(id, itemUpdate);
 
-        res.status(200).redirect('/products?cat=' + cat);
+        res.status(200).redirect('/products/category?cat=' + cat);
     } catch (error) {
         res.status(400).json(error.message);
     }

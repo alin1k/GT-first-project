@@ -2,8 +2,7 @@ import Product from '../models/products.js'
 import Category from '../models/categories.js';
 
 export async function getLatestProducts(req,res){
-    const categories = await Category.distinct('name');
-
+    const categories = (await Category.distinct('name')).reverse();
     const products = await Product.find();
 
     let latestProducts;

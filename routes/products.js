@@ -1,7 +1,7 @@
 import express from 'express';
 import multer from 'multer';
 import path from 'path';
-import { getProducts, postCategory, deleteCategory, getProductsToBeAdded, postProductToCategory, deleteProductFromCategory, addProduct, postProduct, deleteProduct } from '../controllers/products.js';
+import { getProducts, getCategoryProducts, postCategory, deleteCategory, getProductsToBeAdded, postProductToCategory, deleteProductFromCategory, getAddProductForm, postProduct, deleteProduct } from '../controllers/products.js';
 
 const router = express.Router();
 
@@ -20,17 +20,20 @@ const upload = multer({ storage: storage });
 
 router.route('/')
     .get(getProducts)
+    .post(upload.single('product-image'), postProduct)
+    .delete(deleteProduct);
+
+router.route('/add')
+    .get(getAddProductForm);
+
+router.route('/category')
+    .get(getCategoryProducts)
     .post(postCategory)
     .delete(deleteCategory);
 
-router.route('/add-product-to-cat')
+router.route('/category/add')
     .get(getProductsToBeAdded)
     .post(postProductToCategory)
     .delete(deleteProductFromCategory);
-
-router.route('/add-product')
-    .get(addProduct)
-    .post(upload.single('product-image'), postProduct)
-    .delete(deleteProduct);
 
 export default router;

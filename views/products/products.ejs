@@ -10,15 +10,15 @@
 
     <div class="p-4 text-center">
         <% if(locals.category){ %>
-            <a class="btn btn-dark btn-lg" href=<%= "/products/add-product-to-cat?cat=" + category %>>Adauga produse</a>
+            <a class="btn btn-dark btn-lg" href=<%= "/products/category/add?cat=" + category %>>Adauga produse</a>
 
-            <form action="/products?_method=DELETE" method="POST" enctype="application/x-www-form-urlencoded">
+            <form action="/products/category?_method=DELETE" method="POST" enctype="application/x-www-form-urlencoded">
                 <input type="hidden" name="_method" value="DELETE">
                 <input type="hidden" name="cat" value=<%= category %> >
                 <button type="submit" class="btn btn-danger btn-lg">Sterge categoria</button>
             </form>
             <% } else { %>
-            <a href=<%= "/products/add-product" %> class="btn btn-dark btn-lg">Adauga un produs nou</a>
+            <a href=<%= "/products/add" %> class="btn btn-dark btn-lg">Adauga un produs nou</a>
         <% } %>
     </div>
 
