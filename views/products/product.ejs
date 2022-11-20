@@ -28,7 +28,7 @@
             <% } %>
 
             <br>
-            <a href="" >Editare produs</a>
+            <a href=<%= "/products/edit?id=" + _id %>  class="btn btn-dark">Editare produs</a>
             <form action="/products?_method=DELETE" method="POST">
                 <input type="hidden" name="_method" value="DELETE">
                 <input type="hidden" name="id" value=<%= _id %>>

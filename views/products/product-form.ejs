@@ -1,40 +1,50 @@
 <%- include('../partials/header.ejs', {title , categories}); -%>
-    <h1 class="display-2 py-4 text-center">Adauga un produs nou</h1>
+    <h1 class="display-2 py-4 text-center"><%= method === "POST"? "Adauga un produs nou" : "Editeada produsul" %></h1>
 
 
-    <form class="row g-3" id="add-product" action="/products" method="POST" enctype="multipart/form-data">
+    <form class="row g-3" id="add-product" 
+        action=<%= "/products?_method=" + method%>
+        method="POST" 
+        enctype="multipart/form-data">
+
+        <input type="hidden" name="_method" value=<%= method %>>
+
+        <% if(method === "PATCH"){ %>
+            <input type="hidden" name="productId" value=<%= product._id %>>
+        <% } %>
+
         <div class="col-3">
             <label for="name" class="form-label">Nume</label>
-            <input required type="text" class="form-control" name="name">
+            <input required type="text" class="form-control" name="name" value="<%= locals.product? product.name : "" %>">
         </div>
         <div class="col-3">
             <label for="stock" class="form-label">stoc</label>
-            <input required type="number" name="stock" class="form-control">
+            <input required type="number" name="stock" class="form-control" value=<%= locals.product? product.stock : "" %>>
         </div>
         <div class="col-3">
             <label class="form-label" for="size">Marime</label>
             <select class="form-select" aria-label="Selecteaza marimea" name="size">
-                <option value="S" selected>S - Mic</option>
-                <option value="M">M - Mediu</option>
-                <option value="L">L - Mare</option>
+                <option value="S" <%= locals.product && locals.product.size === "S"? 'selected' : true %>>S - Mic</option>
+                <option value="M" <%= locals.product && locals.product.size === "M"? 'selected' : true %>>M - Mediu</option>
+                <option value="L" <%= locals.product && locals.product.size === "L"? 'selected' : true %>>L - Mare</option>
             </select>
         </div>
         <div class="col-3">
             <label class="form-label" for="price">Pret</label>
-            <input required type="number" name="price" class="form-control">
+            <input required type="number" name="price" class="form-control" value=<%= locals.product? product.price : "" %>>
         </div>
         <div class="col-6">
             <label for="image" class="form-label">Poza produs</label>
-            <input required type="file" name="product-image" class="form-control">
+            <input required type="file" name="product-image" class="form-control" <%= locals.product? 'disabled' : true %>>
         </div>
         <div class="col-6">
             <label for="colors" class="form-label">Culori</label>
-            <input required type="text" name="color" class="form-control" placeholder="roz,alb,albastru">
+            <input required type="text" name="color" class="form-control" placeholder="roz,alb,albastru" value=<%= locals.product? product.color : "" %>>
             <p>Te rog sa scrii culorile sub forma "culoare1,culoare2,culoare3"</p>
         </div>
         <div class="col-12">
             <label for="description" class="form-label">Descriere</label>
-            <input required type="text" name="description" class="form-control">
+            <input required type="text" name="description" class="form-control" value="<%= locals.product? product.description : "" %>">
         </div>
         <div class="col-12 text-center">
             <button type="submit" class="btn btn-dark btn-lg">Adauga produsul</button>

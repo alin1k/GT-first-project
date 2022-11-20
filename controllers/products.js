@@ -1,5 +1,6 @@
 import Product from '../models/products.js'
 import Category from '../models/categories.js';
+import mongoose from 'mongoose';
 import { unlink } from 'node:fs/promises';
 
 
@@ -80,7 +81,25 @@ export async function getProductsToBeAdded(req, res){
 export async function getAddProductForm(req, res){
     const categories = (await Category.distinct('name')).reverse();
 
-    res.render("products/product-form.ejs", {title: "Adauga un produs nou", categories});
+    res.render("products/product-form.ejs", {title: "Adauga un produs nou", categories, method: "POST"});
+}
+
+export async function getEditProductForm(req, res){
+    const {id} = req.query;
+    const categories = (await Category.distinct('name')).reverse();
+
+    if(mongoose.Types.ObjectId.isValid(id)){
+        const product = await Product.findById(id);
+
+        if(product){
+            res.render('products/product-form.ejs', {title: "Editeaza un produs", categories, method: "PATCH", product})
+        }else{
+            res.redirect('/products');
+        }
+    }else{
+        res.redirect('/products');
+    }
+
 }
 
 
@@ -120,7 +139,7 @@ export async function postProduct(req, res){
     try {
         await addItem.save();
 
-        res.status(200).redirect('/products?id=' + item.id);
+        res.status(200).redirect('/products?id=' + addItem._id);
     } catch (error) {
         res.status(400).json(error.message);
     }
@@ -196,6 +215,26 @@ export async function deleteProduct(req, res){
         }
 
         res.status(200).redirect('/products');
+    } catch (error) {
+        res.status(400).json(error.message);
+    }
+
+}
+
+
+
+//              PATCH
+
+export async function updateProduct(req, res){
+    const item = req.body;
+    item.stock = parseInt(item.stock);
+    item.price = parseInt(item.price);
+    item.color = item.color.split(',');
+
+    try {
+        await Product.findByIdAndUpdate(item.productId, {$set: item});
+        
+        res.status(200).redirect('/products?id=' + item.productId);
     } catch (error) {
         res.status(400).json(error.message);
     }
