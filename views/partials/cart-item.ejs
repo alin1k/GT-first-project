@@ -1,0 +1,23 @@
+<% const {name, description, _id, size, color, price, stock, img} = item; %>
+
+<div class="col-6 px-5 py-4">
+    <div class="card">
+        <div class="row g-0">
+            <div class="col-3">
+                <img src="<%= img %>" class="img-fluid rounded-start" alt="product image">
+            </div>
+            <div class="col-9">
+                <div class="card-body">
+                    <h5 class="card-title"><%= name %></h5>
+                    <h6 class="card-subtitle text-muted mb-3"><%= price %> RON</h6>
+                    <p class="card-text">Culori: <%= color.join(", ") %></p>
+
+
+                    <form action="">
+                        <button type="submit" class="btn btn-danger">Sterge din cos</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

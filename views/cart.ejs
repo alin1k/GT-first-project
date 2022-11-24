@@ -2,4 +2,10 @@
 
     <h1 class="display-2 text-center py-4">Cosul Meu</h1>
 
+    <div class="row">
+        <% products.forEach((product)=>{ %>
+            <%- include('partials/cart-item.ejs', {item: product}) -%>
+        <% }) %>
+    </div>
+
 <%- include("partials/footer.ejs") %>
