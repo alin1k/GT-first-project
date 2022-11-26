@@ -11,7 +11,7 @@ import cart from './routes/cart.js';
 
 
 const app = express();
-dotenv.config();
+dotenv.config()
 app.use(express.static('public'));
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
@@ -19,13 +19,13 @@ app.use(methodOverride('_method'));
 app.set('view engine', 'ejs');
 
 const PORT = process.env.PORT || 3000;
-const PASSWORD = process.env.DB_PASSWORD;
+const MONGO_URL = process.env.MONGO_URL;
 
 app.use('/', home);
 app.use('/products', products);
 app.use('/cart', cart);
 
-mongoose.connect('mongodb+srv://alin-olt:'+ PASSWORD +'@cluster0.hb213d0.mongodb.net/storeDB', {useNewUrlParser: true})
+mongoose.connect(MONGO_URL , {useNewUrlParser: true})
     .then(()=>{
         app.listen(PORT, ()=>{
             console.log(`server started on port ${PORT}`);
