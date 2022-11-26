@@ -1,4 +1,4 @@
-<% const {name, description, _id, size, color, price, stock, img} = item; %>
+<% const {name, description, _id, size, color, price, stock, img, cartId, quantity} = item; %>
 
 <div class="col-6 px-5 py-4">
     <div class="card">
@@ -10,10 +10,12 @@
                 <div class="card-body">
                     <h5 class="card-title"><%= name %></h5>
                     <h6 class="card-subtitle text-muted mb-3"><%= price %> RON</h6>
-                    <p class="card-text">Culori: <%= color.join(", ") %></p>
+                    <p class="card-text">Bucati: <%= quantity %></p>
 
 
-                    <form action="">
+                    <form action="/cart?_method=DELETE" method="POST" enctype="application/x-www-form-urlencoded">
+                        <input type="hidden" name="_methid" value="DELETE">
+                        <input type="hidden" name="id" value=<%= cartId %>>
                         <button type="submit" class="btn btn-danger">Sterge din cos</button>
                     </form>
                 </div>

@@ -10,7 +10,7 @@
 
     <div class="p-4 text-center">
         <% if(locals.category){ %>
-            <a class="btn btn-dark btn-lg" href=<%= "/products/category/add?cat=" + category %>>Adauga produse</a>
+            <a class="btn btn-dark btn-lg" href=<%= "/products/category/add?cat=" + category %>>Adauga produse in categorie</a>
 
             <form action="/products/category?_method=DELETE" method="POST" enctype="application/x-www-form-urlencoded">
                 <input type="hidden" name="_method" value="DELETE">

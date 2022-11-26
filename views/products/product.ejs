@@ -16,13 +16,13 @@
             <p class="lead mb-5">Culori: <%= color.join(", ") %></p>
 
             <% if(stock>0){ %>
-                <a 
-                    class="btn btn-lg btn-dark mb-5"
-                    href=<%= "javascript:fetch('http://localhost:3000/cart',{method:'POST',headers:{'Content-Type':'application/json',},body:JSON.stringify({id:" + _id + "})});" %>
-                >Adauga in cos <i class="fa-solid fa-cart-shopping"></i></a>
+                <form action="/cart?_method=POST" method="POST" enctype="application/x-www-form-urlencoded" class="mb-2">
+                    <input type="hidden" name="productId" value=<%= _id %>>
+                    <button type="submit" class="btn btn-dark btn-lg">Adauga in cos <i class="fa-solid fa-cart-shopping"></i></button>
+                </form>
             <% } else { %>
                 <a 
-                    class="btn btn-lg btn-danger mb-5 disabled"
+                    class="btn btn-lg btn-danger mb-2 disabled"
                     >Adauga in cos <i class="fa-solid fa-cart-shopping"></i></a>
                 <p>Produsul nu mai e in stoc!</p>
             <% } %>

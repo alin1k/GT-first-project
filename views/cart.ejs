@@ -1,11 +1,58 @@
-<%- include("partials/header.ejs", {title: "My cart", categories}) %>
+<%- include("partials/header.ejs", {title: "Cosul meu", categories}) %>
 
-    <h1 class="display-2 text-center py-4">Cosul Meu</h1>
 
-    <div class="row">
-        <% products.forEach((product)=>{ %>
-            <%- include('partials/cart-item.ejs', {item: product}) -%>
-        <% }) %>
-    </div>
+<% if(products.length){ %>
+    
+        <h1 class="display-2 text-center py-4">Cosul Meu</h1>
+        <div class="row">
+            <% products.forEach((product)=>{ %>
+                <%- include('partials/cart-item.ejs', {item: product}) -%>
+            <% }) %>
+        </div>
+     
+        
+        <h1 class="display-2 py-2">Finalizeaza comanda</h1>
+        <h1 class="display-4 pb-4">Pret Total: <%= totalPrice %> </h1>
+        <div class="row container-fluid">
+            <form action="/cart/order?_method=POST" method="POST" enctype="application/x-www-form-urlencoded" class="col-6 row g-2 mb-5" >
+                <input type="hidden" name="_method" value="POST">
+                <input type="hidden" name="totalPrice" value=<%= totalPrice %>>
+                <div class="col-6">
+                    <label class="form-label" for="lName">Nume</label>
+                    <input required type="text" name="lName" class="form-control">
+                </div>
+                <div class="col-6">
+                    <label class="form-label" for="fName">Prenume</label>
+                    <input required type="text" name="fName" class="form-control">
+                </div>
+                <div class="col-4">
+                    <label class="form-label" for="county">Judetul</label>
+                    <input required type="text" name="county" class="form-control">
+                </div>
+                <div class="col-4">
+                    <label class="form-label" for="city">Oras</label>
+                    <input required type="text" name="city" class="form-control">
+                </div>
+                <div class="col-4">
+                    <label class="form-label" for="street">Strada</label>
+                    <input required type="text" name="street" class="form-control">
+                </div>  
+                <div class="col-6">
+                    <label for="tel" class="form-label">Numar Telefon</label>
+                    <input required type="tel" name="tel" class="form-control">
+                </div>
+                <div class="col-6">
+                    <label for="email" class="form-label">Email</label>
+                    <input required type="email" name="email" class="form-control">
+                </div>
+                <div class="col-12 text-center mt-4">
+                    <button type="submit" class="btn btn-dark btn-lg">Trimite comanda</button>
+                </div>
+    
+            </form>
+        </div>
+    <% } else{ %>
+        <h1 class="display-2 text-center py-4">Din pacate cosul tau este gol. Adauga produse pentru a continua</h1>
+    <% } %>
 
 <%- include("partials/footer.ejs") %>
